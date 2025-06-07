@@ -1,7 +1,6 @@
-/* userInput.js —— Person D: 无侵入式集成用户输入 —— */
-
+//user input-mouse ripple//
 (function(){
-    // 存储用户交互的 expanding circles
+    // save interactive expanding circles//
     const UserInput = {
       circles: [],
       updateAndDraw() {
@@ -14,9 +13,9 @@
           circle(c.x, c.y, c.size * 0.75);
           circle(c.x, c.y, c.size * 0.5);
         });
-        // 清理超出画布的
+        // clean up circles that are too large//
         this.circles = this.circles.filter(c => c.size < max(width, height) * 2);
-        // 没有内容时停止动画
+        // stop animation if no circles left//
         if (this.circles.length === 0) noLoop();
       },
       mousePressed() {
@@ -25,14 +24,14 @@
       }
     };
   
-    // 保存并替换全局 draw
+    // save and replace global setup//
     const _origDraw = window.draw;
     window.draw = function() {
       _origDraw && _origDraw();
       UserInput.updateAndDraw();
     };
   
-    // 保存并替换全局 mousePressed
+    // save and replace global mousePressed//
     const _origMouse = window.mousePressed;
     window.mousePressed = function() {
       _origMouse && _origMouse();

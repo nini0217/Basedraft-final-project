@@ -30,8 +30,8 @@ const CircleManager = {
             pos.y > -spacing && pos.y < height + spacing
           ) {
             let cols = Array.from({length: this.LAYERS},
-                                  () => RenderManager.randomColor());
-            let centerCol = RenderManager.randomColor();
+                                  () => DecorateWheels.randomColor());
+            let centerCol = DecorateWheels.randomColor();
             this.circles.push({ x: pos.x, y: pos.y, radius, cols, centerCol });
           }
         }

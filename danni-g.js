@@ -1,8 +1,7 @@
-// renderManager.js
-// —— Person C: Rendering 模块 —— 
+// danni - group code.js
 
-const RenderManager = {
-    // 画单个“轮子”
+const DecorateWheels = {
+    // Draw a single wheel
     drawWheel({ x, y, radius, cols, centerCol }) {
       push();
       translate(x, y);
@@ -25,7 +24,7 @@ const RenderManager = {
         }
       });
   
-      // 中心小圈
+      // central cricle
       stroke(centerCol);
       strokeWeight(radius * 0.05);
       ellipse(0, 0, radius * 0.5);
@@ -33,7 +32,7 @@ const RenderManager = {
       pop();
     },
   
-    // 随机 RGB 颜色
+    // random color
     randomColor() {
       return color(random(255), random(255), random(255));
     }

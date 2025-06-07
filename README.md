@@ -161,7 +161,59 @@ Generates a grid of wheel objects with positioning, size, and color properties.
 <pre><code>const a = p5.Vector.fromAngle(rotationAngle).mult(spacing);
 const b = p5.Vector.fromAngle(rotationAngle + HALF_PI).mult(spacing);
 </code></pre>
-<img width="1464" alt="1" src="https://github.com/user-attachments/assets/0acf07cf-80b1-4069-9ee3-8e1158e5297f" /> ｜ <img width="582" alt="1 code" src="https://github.com/user-attachments/assets/cfcfef55-b654-4a64-8541-2eb03ec43ed9" />
+- These vectors rotate the grid 15° and compute staggered rows.
+- We discovered and refined this method through ChatGPT, which helped us understand p5.Vector math not covered in class.
+- The offset logic below ensures every second row is shifted:
+<pre><code>if (j % 2 !== 0) {
+  pos.add(offset); // apply half-step shift to odd rows
+}</code></pre>
+Each object pushed into the circles array includes position (x, y), radius, an array of layer colors (cols), and a central highlight color (centerCol).
+
+#### DecorateWheels
+This module renders each wheel using layered ellipses and decorative radial dots.
+<pre><code>for (let i = 0; i < cols.length; i++) {
+  const col = cols[i];
+  const layerR = radius - i * (radius / circleSystem.LAYERS);
+  stroke(col);
+  ellipse(0, 0, layerR * 2);
+
+  const numPoints = 36 + i * 6;
+  for (let j = 0; j < numPoints; j++) {
+    const ang = (TWO_PI / numPoints) * j;
+    const px  = cos(ang) * layerR;
+    const py  = sin(ang) * layerR;
+    fill(col);
+    ellipse(px, py, radius * 0.05);
+  }
+}</code></pre>
+- The number of points increases inward (36 + i * 6), creating visual richness.
+- The math for radial positioning (cos/sin) was initially adapted with the help of ChatGPT after experimenting with p5 polar coordinate examples.
+
+A final center circle is drawn using a separate random color:
+<pre><code>stroke(centerCol);
+strokeWeight(radius * 0.05);
+ellipse(0, 0, radius * 0.5);</code></pre>
+
+#### Main Flow
+The overall program flow can be summarized as:
+<pre><code>setup() 
+ └─> CanvasManager.setupCanvas()
+ └─> circleSystem.generateCircles()
+ 
+draw()
+ └─> CanvasManager.clearBackground()
+ └─> loop: DecorateWheels.drawWheel(circle)
+
+windowResized()
+ └─> CanvasManager.resizeCanvas()
+ └─> circleSystem.generateCircles()</code></pre>
+
+### 4.2 Use of External Tools and AI Assistance
+
+While most techniques align with core p5.js teachings, we integrated several concepts from outside the classroom:
+- p5.Vector Grid Rotation & Offset: The rotated grid system and vector math were adapted through iterative help from ChatGPT, which clarified how fromAngle() and mult() work together to place points diagonally with consistent spacing.
+- Radial Dot Rendering: The logic for positioning evenly spaced dots around a circle was based on polar coordinate math we explored with ChatGPT’s assistance. This was crucial in achieving the ornamented style of the original artwork.
+  
 ## Reference List
 Abad, P. (1994). Wheel of fortune [Mixed media on stitched and padded canvas]. Pacita Abad Art Estate. https://pacitaabad.com/artwork/wheel-of-fortune/
 

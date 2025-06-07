@@ -162,8 +162,6 @@ Generates a grid of wheel objects with positioning, size, and color properties.
 const b = p5.Vector.fromAngle(rotationAngle + HALF_PI).mult(spacing);
 </code></pre>
 <img width="1464" alt="1" src="https://github.com/user-attachments/assets/0acf07cf-80b1-4069-9ee3-8e1158e5297f" /> ｜ <img width="582" alt="1 code" src="https://github.com/user-attachments/assets/cfcfef55-b654-4a64-8541-2eb03ec43ed9" />
-
-
 ## Reference List
 Abad, P. (1994). Wheel of fortune [Mixed media on stitched and padded canvas]. Pacita Abad Art Estate. https://pacitaabad.com/artwork/wheel-of-fortune/
 

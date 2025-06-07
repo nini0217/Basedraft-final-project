@@ -1,17 +1,18 @@
 // regina-g.js
 const circleSystem = {
   circles: [],
-  OUTER_SCALE: 0.8,
-  LAYERS: 5,
+  OUTER_SCALE: 0.8, //outline ellipes radius ratio//
+  LAYERS: 5, //number of layers//
 
+  // Function to generate a grid of decorative circles//
   generateCircles: function() {
     this.circles = [];
     const baseRadius = min(width, height) / 5;
     const radius     = baseRadius * this.OUTER_SCALE;
     const spacing    = radius * 2;
-    const theta      = radians(15);
-    const a          = p5.Vector.fromAngle(theta).mult(spacing);
-    const b          = p5.Vector.fromAngle(theta + HALF_PI).mult(spacing);
+    const rotationAngle      = radians(15);
+    const a          = p5.Vector.fromAngle(rotationAngle).mult(spacing);  // Vector 'a' along skewed axis//
+    const b          = p5.Vector.fromAngle(rotationAngle + HALF_PI).mult(spacing);  // Vector 'b' perpendicular to 'a'//
     const offset     = a.copy().mult(0.5);
     const centre     = createVector(width / 2, height / 2);
     const n          = ceil(max(width, height) / spacing) + 2;
@@ -25,6 +26,8 @@ const circleSystem = {
           pos.add(offset);
         }
 
+
+        // Only include circles that are within or just outside canvas bounds//
         if (
           pos.x > -spacing && pos.x < width + spacing &&
           pos.y > -spacing && pos.y < height + spacing
@@ -33,7 +36,7 @@ const circleSystem = {
           for (let k = 0; k < this.LAYERS; k++) {
             cols.push(DecorateWheels.randomColor());
           }
-          const centerCol = DecorateWheels.randomColor();
+          const centerCol = DecorateWheels.randomColor();  // Generate a central color for the circle core//
           this.circles.push({
             x: pos.x,
             y: pos.y,

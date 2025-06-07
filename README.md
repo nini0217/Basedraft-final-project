@@ -123,3 +123,32 @@ The responsive behavior was achieved by using `windowWidth` and `windowHeight` w
 To enhance the visual rhythm, we applied a staggered grid layout by introducing an alternating offset on every second row. Specifically, we used rotated vector math (15° incline) to calculate a skewed coordinate grid, and offset odd rows by half a unit. This creates a natural tessellation and avoids rigid horizontal/vertical alignments.
 
 Together, these enhancements culminate in a dynamic, colorful, and mathematically coherent structure that represents both the visual logic and symbolic depth of the original *Wheel of Fortune*. This layout also provides a solid foundation for each group member’s individual animation layer, ensuring consistency across extensions.
+
+## Section 4 – Technical Overview
+
+Our final group code is built on a modular architecture with clear separation of responsibilities. Each component interacts through a shared data structure (circleSystem.circles) and operates within the p5.js lifecycle (setup(), draw(), windowResized()).
+
+### 4.1 Module Structure
+#### CanvasManager
+Responsible for initializing and resizing the canvas, as well as background control.
+<pre><code>const CanvasManager = {
+  setupCanvas() {
+    createCanvas(windowWidth, windowHeight);
+    noLoop(); // ensures only one redraw unless manually triggered
+  },
+  resizeCanvas() {
+    resizeCanvas(windowWidth, windowHeight);
+  },
+  clearBackground() {
+    background('#000000');
+  }
+};
+</code></pre>
+- noLoop() prevents unnecessary re-drawing when not animating.
+- Using windowWidth/windowHeight makes the canvas fully responsive.
+
+#### circleSystem
+Generates a grid of wheel objects with positioning, size, and color properties.
+<pre><code>const a = p5.Vector.fromAngle(rotationAngle).mult(spacing);
+const b = p5.Vector.fromAngle(rotationAngle + HALF_PI).mult(spacing);
+</code></pre>

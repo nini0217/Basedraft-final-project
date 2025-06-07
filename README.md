@@ -71,5 +71,5 @@ In our initial prototype, we focused on accurately replicating the geometric lay
 To achieve this, we used p5.Vector mathematics to calculate the position of each circle in a rotated grid. The grid is rotated by 15 degrees to match the visual angle of the original artwork, and alternate rows are shifted by half a step to create a dynamic, interlocking structure.
 
 Each circle was rendered as a simple hollow outline using ellipse() with noFill() and a light gray stroke, emphasizing structure over ornamentation. This bare-bones version was critical for confirming that our math and responsive layout logic were functioning as expected.
-<img width="1464" alt="1" src="https://github.com/user-attachments/assets/0acf07cf-80b1-4069-9ee3-8e1158e5297f" /><img width="582" alt="1 code" src="https://github.com/user-attachments/assets/cfcfef55-b654-4a64-8541-2eb03ec43ed9" />
+<img width="1464" alt="1" src="https://github.com/user-attachments/assets/0acf07cf-80b1-4069-9ee3-8e1158e5297f" /> ｜ <img width="582" alt="1 code" src="https://github.com/user-attachments/assets/cfcfef55-b654-4a64-8541-2eb03ec43ed9" />
 

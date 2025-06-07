@@ -45,7 +45,7 @@ const circleSystem = {
           });  // Add the circle to the array//
         }
       }
-    }
+    } 
     redraw();  // Redraw the canvas after generating circles//
   }
 };

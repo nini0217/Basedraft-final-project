@@ -12,16 +12,16 @@ const circleSystem = {
       const theta      = radians(15);
       const a          = p5.Vector.fromAngle(theta).mult(spacing);
       const b          = p5.Vector.fromAngle(theta + HALF_PI).mult(spacing);
-      const halfA      = a.copy().mult(0.5);     // offset for even-numbered rows//
-      const center     = createVector(width/2, height/2);
+      const offset      = a.copy().mult(0.5);     // offset for even-numbered rows//
+      const centre     = createVector(width/2, height/2);
       const n          = ceil(max(width, height)/spacing) + 2;
   
       for (let i = -n; i <= n; i++) {
         for (let j = -n; j <= n; j++) {
           let pos = p5.Vector.mult(a, i)
                      .add(p5.Vector.mult(b, j))
-                     .add(center);
-          if (j % 2 !== 0) pos.add(halfA);
+                     .add(centre);
+          if (j % 2 !== 0) pos.add(offset);
   
           if (
             pos.x > -spacing && pos.x < width + spacing &&

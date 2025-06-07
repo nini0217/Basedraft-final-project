@@ -1,41 +1,69 @@
-//user input-mouse ripple//
+/* userInput.js —— Person D: 无侵入式集成用户输入 —— */
+
 (function(){
-    // save interactive expanding circles//
-    const UserInput = {
-      circles: [],
-      updateAndDraw() {
-        this.circles.forEach(c => {
-          c.size += 10;
-          stroke(0, 64, 128);
+  // 存储用户交互的 expanding circles
+  const UserInput = {
+    circles: [],
+
+    // 随机 RGB 颜色生成器
+    randomColor() {
+      return color(random(255), random(255), random(255));
+    },
+
+    updateAndDraw() {
+      // 每帧更新并绘制
+      this.circles.forEach(c => {
+        c.size += 10;
+
+        // 三层涟漪：依次用各自颜色绘制
+        const sizes = [c.size, c.size * 0.75, c.size * 0.5];
+        sizes.forEach((s, i) => {
+          stroke(c.colors[i]);
           strokeWeight(5);
           noFill();
-          circle(c.x, c.y, c.size);
-          circle(c.x, c.y, c.size * 0.75);
-          circle(c.x, c.y, c.size * 0.5);
+          circle(c.x, c.y, s);
         });
-        // clean up circles that are too large//
-        this.circles = this.circles.filter(c => c.size < max(width, height) * 2);
-        // stop animation if no circles left//
-        if (this.circles.length === 0) noLoop();
-      },
-      mousePressed() {
-        this.circles.push({ x: mouseX, y: mouseY, size: 0 });
-        loop();
+      });
+
+      // 仅在 circle 完全移出画布后才移除
+      this.circles = this.circles.filter(c => {
+        const r = c.size / 2;
+        const offLeft   = c.x + r < 0;
+        const offRight  = c.x - r > width;
+        const offTop    = c.y + r < 0;
+        const offBottom = c.y - r > height;
+        return !(offLeft || offRight || offTop || offBottom);
+      });
+
+      // 当没有任何圈时，停止 draw 循环
+      if (this.circles.length === 0) {
+        noLoop();
       }
-    };
-  
-    // save and replace global setup//
-    const _origDraw = window.draw;
-    window.draw = function() {
-      _origDraw && _origDraw();
-      UserInput.updateAndDraw();
-    };
-  
-    // save and replace global mousePressed//
-    const _origMouse = window.mousePressed;
-    window.mousePressed = function() {
-      _origMouse && _origMouse();
-      UserInput.mousePressed();
-    };
-  })();
-  
+    },
+
+    mousePressed() {
+      // 按下时添加新圈，并生成三种随机颜色
+      const newColors = [
+        this.randomColor(),
+        this.randomColor(),
+        this.randomColor()
+      ];
+      this.circles.push({ x: mouseX, y: mouseY, size: 0, colors: newColors });
+      loop();
+    }
+  };
+
+  // 保存并扩展全局 draw
+  const _origDraw = window.draw;
+  window.draw = function() {
+    _origDraw && _origDraw();
+    UserInput.updateAndDraw();
+  };
+
+  // 保存并扩展全局 mousePressed
+  const _origMouse = window.mousePressed;
+  window.mousePressed = function() {
+    _origMouse && _origMouse();
+    UserInput.mousePressed();
+  };
+})();

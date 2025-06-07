@@ -24,52 +24,45 @@ To introduce a conceptual counterpoint to Abad’s organic expressiveness, we al
 
 ## Section 2 – Technical Planning
 
-To translate *Wheel of Fortune* into code, our group decided on a modular, class-based architecture built on p5.js’s lifecycle. Below is our planned approach—no actual code, just responsibilities and data flow.
-
 ### 2.1 Module & Class Structure
+**CanvasManager**  
+- Responsibility: initialize and resize the drawing surface.  
+- Interface:  
+  - `setupCanvas()`: creates a full-window canvas.  
+  - `resizeCanvas()`: recalculates dimensions on window resize.  
+  - `clearBackground()`: fills the canvas with a solid base color.
 
-- **CanvasManager**  
-  - **Responsibility:** Initialize and resize the drawing surface.  
-  - **Interface:**  
-    - `setupCanvas()` creates a full-window canvas.  
-    - `resizeCanvas()` re-calculates dimensions on window resize.  
-    - `clearBackground()` fills the canvas with a solid base color.
+**CircleManager**  
+- Responsibility: compute a grid of wheel parameters (positions, radii, color palettes).  
+- Approach:  
+  - Determine a base radius proportional to the smaller of `windowWidth`/`windowHeight`.  
+  - Derive grid spacing as twice the sum of that radius plus any decorative offset, plus a margin.  
+  - Generate a 2D loop of `(i, j)` indices, map each to a 2D position via skewed vectors (–30° incline and its perpendicular), filtering to those that intersect the canvas.  
+  - Produce an array of simple objects `{ x, y, radius, palette }`.
 
-- **CircleManager**  
-  - **Responsibility:** Compute a grid of wheel parameters (positions, radii, color palettes).  
-  - **Approach:**  
-    1. Determine a **base radius** proportional to the smaller of `windowWidth`/`windowHeight`.  
-    2. Derive **grid spacing** as twice the sum of that radius plus any decorative offset, plus a margin.  
-    3. Generate a two-dimensional loop of `(i, j)` indices, map each to a 2D position via skewed vectors (–30° incline and its perpendicular), and filter to those that intersect the canvas.  
-    4. Produce an array of simple objects `{ x, y, radius, palette }`.
-
-- **DecorateWheels**  
-  - **Responsibility:** Render one wheel per data object.  
-  - **Responsibilities:**  
-    - Draw three solid concentric rings, each with its own color from the `palette`.  
-    - Draw a fourth decorative stroke ring (the “chain”) with evenly spaced dots along its circumference.  
-    - Expose a single method `drawWheel(params)` that accepts the positional and styling fields.
+**DecorateWheels**  
+- Responsibility: render one wheel per data object.  
+- Responsibilities:  
+  - Draw three solid concentric rings, each with its own color from the palette.  
+  - Draw a fourth decorative stroke ring (the “chain”) with evenly spaced dots along its circumference.  
+  - Expose a single method `drawWheel(params)` that accepts the positional and styling fields.
 
 ### 2.2 Screen-Fitting Strategy
-
-- **Responsive Sizing:** All radii and spacings derive from `windowWidth`/`windowHeight`, so wheels remain proportional on any display.  
-- **Dynamic Coverage:** We calculate the number of rows and columns needed to overlap slightly beyond the canvas edges—this guarantees that, regardless of window aspect ratio, no blank strips appear.  
-- **Recalculation on Resize:** In `windowResized()`, we invoke both `CanvasManager.resizeCanvas()` and `CircleManager.generateCircles()`, then trigger a single redraw to reposition and re-render every wheel.
+- **Responsive Sizing**: all radii and spacings derive from `windowWidth`/`windowHeight`, so wheels remain proportional on any display.  
+- **Dynamic Coverage**: calculate rows and columns to slightly overlap canvas edges—no blank strips appear regardless of aspect ratio.  
+- **Recalculation on Resize**: in `windowResized()`, invoke both `CanvasManager.resizeCanvas()` and `CircleManager.generateCircles()`, then trigger a single redraw to reposition and re-render every wheel.
 
 ### 2.3 Preparation for Animation
-
-Even though this section covers static planning, we reserve space in each wheel’s data object for:
-
-- **Perlin seeds** (`seedPos`, `seedRad`, etc.) so that individual tasks (noise-driven drift, pulsing, color shifts) can hook into the existing class without refactoring.  
-- **Audio or Interaction hooks**, with placeholder properties (e.g., `amplitudeLevel`) to allow alternate animation methods (sound, mouse) to integrate seamlessly.
+- Reserve space in each wheel’s data object for:  
+  - **Perlin seeds** (`seedPos`, `seedRad`, etc.) so that noise-driven drift, pulsing, color shifts can hook in without refactoring.  
+  - **Audio or interaction hooks**, with placeholder properties (e.g. `amplitudeLevel`) to allow sound, mouse, or other inputs to integrate seamlessly.
 
 ### 2.4 External Techniques & References
-
-- **p5.js Vector Math:** We leverage `p5.Vector.fromAngle()` to generate incline and perpendicular direction vectors for grid layout—this technique was introduced in Week 9 tutorials.  
-- **Modular OOP in p5.js:** Inspired by Daniel Shiffman’s examples, we use simple objects and one-method drawing classes rather than sprawling global code.  
-- **Responsive Design Principles:** Drawing from web-responsive best practices, we avoid hard-coded sizes; everything is parameterized to fit any viewport.
-
-This plan balances clarity of responsibility, ease of iteration, and built-in flexibility for each member’s individual animation method, setting a solid foundation for our group’s coding phase.
+- **Responsive Design Calculations** (Week 9 Tutorial): dynamic sizing and centering based on canvas aspect ratio.  
+- **Transformations** (Week 10 Lecture): plan to use `translate()`, `rotate()`, and `scale()` for intra-wheel animations.  
+- **Perlin Noise** (Week 11 Lecture): reserve hooks for `noise()`-based drift, pulsing, and organic color shifts.  
+- **Modular OOP Patterns**: inspired by Daniel Shiffman’s p5.js examples (Coding Train).  
+- **Code Reuse & Toolkit Mindset**: following Adrien M & Claire’s approach to building a reusable interactive toolkit.
 
 
 ## Section 3 – Implementation

@@ -8,7 +8,7 @@ const DecorateWheels = {
       noFill();
   
       cols.forEach((col, i) => {
-        const layerR = radius - i * (radius / CircleManager.LAYERS);
+        const layerR = radius - i * (radius / circleSystem.LAYERS);
         stroke(col);
         strokeWeight(2);
         ellipse(0, 0, layerR * 2);

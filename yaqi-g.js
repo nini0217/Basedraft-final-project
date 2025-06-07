@@ -17,12 +17,12 @@ const CanvasManager = {
 // p5.js 回调，调用其它两位同学的模块
 function setup() {
   CanvasManager.setupCanvas();
-  CircleManager.generateCircles();
+  circleSystem.generateCircles();
 }
 
 function windowResized() {
   CanvasManager.resizeCanvas();
-  CircleManager.generateCircles();
+  circleSystem.generateCircles();
 }
 
 function draw() {

@@ -1,7 +1,5 @@
-// circleManager.js
-// —— Person B: Circle Generation 模块 —— 
-
-const CircleManager = {
+//draw circle//
+const circleSystem = {
     circles: [],  
     OUTER_SCALE: 0.8,  // 最外层圆环缩小比例
     LAYERS: 5,         // 圆环层数

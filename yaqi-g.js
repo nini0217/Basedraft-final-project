@@ -1,20 +1,18 @@
-// canvasManager.js
-// —— Person A: Canvas Manager 模块 —— 
-
-const CanvasManager = {
-  setupCanvas() {
+// canvasManager.js —— Canvas 管理模块
+var CanvasManager = {
+  setupCanvas: function() {
     createCanvas(windowWidth, windowHeight);
     noLoop();
   },
-  resizeCanvas() {
+  resizeCanvas: function() {
     resizeCanvas(windowWidth, windowHeight);
   },
-  clearBackground() {
+  clearBackground: function() {
     background('#000000');
   }
 };
 
-// p5.js 回调，调用其它两位同学的模块
+// p5.js 回调
 function setup() {
   CanvasManager.setupCanvas();
   circleSystem.generateCircles();
@@ -27,5 +25,9 @@ function windowResized() {
 
 function draw() {
   CanvasManager.clearBackground();
- circleSystem.circles.forEach(c => DecorateWheels.drawWheel(c));
+  // 用 for 替代 forEach
+  for (var i = 0; i < circleSystem.circles.length; i++) {
+    var c = circleSystem.circles[i];
+    DecorateWheels.drawWheel(c);
+  }
 }

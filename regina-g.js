@@ -1,18 +1,18 @@
 //draw circle//
 const circleSystem = {
     circles: [],  
-    OUTER_SCALE: 0.8,  // 最外层圆环缩小比例
-    LAYERS: 5,         // 圆环层数
+    OUTER_SCALE: 0.8,  // scaling ratio of the outer ring//
+    LAYERS: 5,         // layers of rings//
   
     generateCircles() {
       this.circles = [];
       const baseRadius = min(width, height) / 5;
       const radius     = baseRadius * this.OUTER_SCALE;
-      const spacing    = radius * 2;            // 相切间距
+      const spacing    = radius * 2;            // tangent spacing//
       const theta      = radians(15);
       const a          = p5.Vector.fromAngle(theta).mult(spacing);
       const b          = p5.Vector.fromAngle(theta + HALF_PI).mult(spacing);
-      const halfA      = a.copy().mult(0.5);     // 偶数行偏移
+      const halfA      = a.copy().mult(0.5);     // offset for even-numbered rows//
       const center     = createVector(width/2, height/2);
       const n          = ceil(max(width, height)/spacing) + 2;
   

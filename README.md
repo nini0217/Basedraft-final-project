@@ -13,7 +13,54 @@ Our chosen artwork is titled Wheel of Fortune, which features a grid of vibrant 
 - Audio-Responsive Visuals (Coding Train): Since the animation for this project will be extended individually with methods such as Perlin noise, sound reactivity, and user interaction, we looked to Daniel Shiffman’s Coding Train videos for inspiration on how visuals can respond to external data sources (e.g., amplitude, frequency). This influenced how we planned the scalable properties of the wheel elements (e.g., size, color, stroke weight).
 
 
+## Section 2 – Technical Planning
 
+To translate *Wheel of Fortune* into code, our group decided on a modular, class-based architecture built on p5.js’s lifecycle. Below is our planned approach—no actual code, just responsibilities and data flow.
+
+### 2.1 Module & Class Structure
+
+- **CanvasManager**  
+  - **Responsibility:** Initialize and resize the drawing surface.  
+  - **Interface:**  
+    - `setupCanvas()` creates a full-window canvas.  
+    - `resizeCanvas()` re-calculates dimensions on window resize.  
+    - `clearBackground()` fills the canvas with a solid base color.
+
+- **CircleManager**  
+  - **Responsibility:** Compute a grid of wheel parameters (positions, radii, color palettes).  
+  - **Approach:**  
+    1. Determine a **base radius** proportional to the smaller of `windowWidth`/`windowHeight`.  
+    2. Derive **grid spacing** as twice the sum of that radius plus any decorative offset, plus a margin.  
+    3. Generate a two-dimensional loop of `(i, j)` indices, map each to a 2D position via skewed vectors (–30° incline and its perpendicular), and filter to those that intersect the canvas.  
+    4. Produce an array of simple objects `{ x, y, radius, palette }`.
+
+- **DecorateWheels**  
+  - **Responsibility:** Render one wheel per data object.  
+  - **Responsibilities:**  
+    - Draw three solid concentric rings, each with its own color from the `palette`.  
+    - Draw a fourth decorative stroke ring (the “chain”) with evenly spaced dots along its circumference.  
+    - Expose a single method `drawWheel(params)` that accepts the positional and styling fields.
+
+### 2.2 Screen-Fitting Strategy
+
+- **Responsive Sizing:** All radii and spacings derive from `windowWidth`/`windowHeight`, so wheels remain proportional on any display.  
+- **Dynamic Coverage:** We calculate the number of rows and columns needed to overlap slightly beyond the canvas edges—this guarantees that, regardless of window aspect ratio, no blank strips appear.  
+- **Recalculation on Resize:** In `windowResized()`, we invoke both `CanvasManager.resizeCanvas()` and `CircleManager.generateCircles()`, then trigger a single redraw to reposition and re-render every wheel.
+
+### 2.3 Preparation for Animation
+
+Even though this section covers static planning, we reserve space in each wheel’s data object for:
+
+- **Perlin seeds** (`seedPos`, `seedRad`, etc.) so that individual tasks (noise-driven drift, pulsing, color shifts) can hook into the existing class without refactoring.  
+- **Audio or Interaction hooks**, with placeholder properties (e.g., `amplitudeLevel`) to allow alternate animation methods (sound, mouse) to integrate seamlessly.
+
+### 2.4 External Techniques & References
+
+- **p5.js Vector Math:** We leverage `p5.Vector.fromAngle()` to generate incline and perpendicular direction vectors for grid layout—this technique was introduced in Week 9 tutorials.  
+- **Modular OOP in p5.js:** Inspired by Daniel Shiffman’s examples, we use simple objects and one-method drawing classes rather than sprawling global code.  
+- **Responsive Design Principles:** Drawing from web-responsive best practices, we avoid hard-coded sizes; everything is parameterized to fit any viewport.
+
+This plan balances clarity of responsibility, ease of iteration, and built-in flexibility for each member’s individual animation method, setting a solid foundation for our group’s coding phase.
 
 
 ## Section 3 – Implementation

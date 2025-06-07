@@ -27,5 +27,5 @@ function windowResized() {
 
 function draw() {
   CanvasManager.clearBackground();
-  CircleManager.circles.forEach(c => DecorateWheels.drawWheel(c));
+ circleSystem.circles.forEach(c => DecorateWheels.drawWheel(c));
 }

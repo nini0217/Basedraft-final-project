@@ -1,5 +1,5 @@
-// canvasManager.js —— Canvas 管理模块
-var CanvasManager = {
+// yaqi-g.js
+const CanvasManager = {
   setupCanvas: function() {
     createCanvas(windowWidth, windowHeight);
     noLoop();
@@ -12,7 +12,6 @@ var CanvasManager = {
   }
 };
 
-// p5.js 回调
 function setup() {
   CanvasManager.setupCanvas();
   circleSystem.generateCircles();
@@ -25,9 +24,8 @@ function windowResized() {
 
 function draw() {
   CanvasManager.clearBackground();
-  // 用 for 替代 forEach
-  for (var i = 0; i < circleSystem.circles.length; i++) {
-    var c = circleSystem.circles[i];
+  for (let i = 0; i < circleSystem.circles.length; i++) {
+    const c = circleSystem.circles[i];
     DecorateWheels.drawWheel(c);
   }
 }

@@ -36,9 +36,9 @@
       });
 
       // 当没有任何圈时，停止 draw 循环
-      if (this.circles.length === 0) {
-        noLoop();
-      }
+      //if (this.circles.length === 0) {
+       // noLoop();
+      //}
     },
 
     mousePressed() {

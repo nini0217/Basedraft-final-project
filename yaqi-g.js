@@ -2,7 +2,7 @@
 const CanvasManager = {
   setupCanvas: function() {
     createCanvas(windowWidth, windowHeight);
-    noLoop();
+   // noLoop();
   },
   resizeCanvas: function() {
     resizeCanvas(windowWidth, windowHeight);

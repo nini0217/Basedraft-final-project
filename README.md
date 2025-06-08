@@ -6,14 +6,29 @@ Our chosen artwork is titled Wheel of Fortune, which features a grid of vibrant 
 #### The Original Artwork:
 Wheel of Fortune by Pacita Abad directly influenced our code structure with the composition of colourful circular wheels and detailed accessories. Her use of vivid colour, layered textures, and designed compositions provided us with a framework for translating her physical complexity into computational logic (Abad, 1994). The structure of her work can be simplified into a set of geometrical shapes, we decided to use circle as our main shape in recreating her artwork. Each wheel can be deconstructed into concentric rings and radial symmetry. These circular modules form the foundational units of our generative system.
 
-#### Op Art & Mandalas:
-The repetitive, geometric nature of the wheels shares visual logic with both Op Art and spiritual mandala designs. Op Art’s use of visual illusion and rhythmic geometry guided the development of contrast and motion in our patterns (López-Pedraza, 1990). Similarly, the meditative structure of mandalas—a balance between chaos and control—echoes the hypnotic visual rhythm we aim to evoke (Cirlot, 2002). These influences encouraged us to explore symmetry, repetition, and animation as tools for crafting immersive visual experiences.
+![](DesignDocument_Images/pacita-abad1.jpg) 
+(Pacita Abad | Wheels of Fortune (2000) | Artsy, n.d.)
 
-#### Jared Tarbell’s Generative Works:
-Tarbell’s early generative art projects, such as Substrate and Happy Place, inspired us to approach our piece as a rule-based system with the potential for emergent complexity (Tarbell, n.d.). While our work remains more representational, the philosophy of building richness from simple, repeated forms aligns closely with Tarbell’s generative ethos. His interplay between algorithmic structure and organic variation informed the overall design logic behind our implementation.
+
+![](DesignDocument_Images/pacita-abad2.jpg) 
+(Feminist Art, 2024)
+
+
+#### Op Art & Mandalas:
+The repetitive, geometric nature of the wheels shares visual logic with both Op Art and spiritual mandala designs. Op Art’s use of visual illusion and rhythmic geometry guided the development of contrast and motion in our patterns (López-Pedraza, 1990). Similarly, the structure of mandalas poseses a balance between chaos and control. These influences encouraged us to explore symmetry, repetition, and animation as tools for crafting immersive visual experiences.
+
+![](DesignDocument_Images/opart.jpeg)
+Op Art Example (oasisk, 2021)
+
 
 #### Peter Halley’s Neo-Geo Abstraction:
 To introduce a conceptual counterpoint to Abad’s organic expressiveness, we also drew inspiration from Peter Halley’s geometric abstraction. His work—composed of rigid “cells” and “conduits”—prompted us to consider the underlying systems within our artwork. Halley’s stark use of industrial colours and structural grids offered a contrasting perspective on how pattern and repetition can reflect institutional control, confinement, or connectivity (Halley, 1989). This influence encouraged us to think of each wheel not only as an aesthetic object, but as a symbol within a broader, abstracted network. The interplay between Halley’s systematic geometry and Abad’s exuberant layering ultimately shaped the duality at the heart of our visual and conceptual design.
+
+![](DesignDocument_Images/peter-halley.jpg)
+(Halley’s Neo-Geo DayGlo-pro Comet, 2025)
+
+
+With the artistic inspiration above, we tried to recreate the classic Wheel of Fortune with a more neon and futuristic aesthetic perspective. bold colour and black background is used to distinguish our work with the original. We deconstructed the artwork and rebuilt it using simple geometrical shapes to deliver a brand-new project.
 
 
 ### 1.2 Technical and Design Inspiration
@@ -207,6 +222,7 @@ While most techniques align with core p5.js teachings, we integrated several con
 - p5.Vector Grid Rotation & Offset: The rotated grid system and vector math were adapted through iterative help from ChatGPT, which clarified how fromAngle() and mult() work together to place points diagonally with consistent spacing.
 - Radial Dot Rendering: The logic for positioning evenly spaced dots around a circle was based on polar coordinate math we explored with ChatGPT’s assistance. This was crucial in achieving the ornamented style of the original artwork.
   
+  
 ## Reference List
 Abad, P. (1994). Wheel of fortune [Mixed media on stitched and padded canvas]. Pacita Abad Art Estate. https://pacitaabad.com/artwork/wheel-of-fortune/
 
@@ -216,6 +232,9 @@ Halley, P. (1989). Peter Halley: Collected essays 1981–1987. Galerie Bruno Bis
 
 López-Pedraza, R. (1990). Cultural anxiety: Jungian perspectives on artistic form and illusion. Spring Publications.
 
-Tarbell, J. (n.d.). Gallery of generative art. Complexification. http://www.complexification.net
+oasisk. (2021, April 3). Mandala Op Art. Cults 3D. https://cults3d.com/en/3d-model/art/mandala-op-art
+
+Pacita Abad | Wheels of fortune (2000) | Artsy. (n.d.). Www.artsy.net. https://www.artsy.net/artwork/pacita-abad-wheels-of-fortune
+
 
 
